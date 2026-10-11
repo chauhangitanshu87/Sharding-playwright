@@ -8,7 +8,7 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-     strategy:
+    strategy:
       fail-fast: false
       matrix:
         shardIndex: [1, 2, 3, 4]
@@ -28,10 +28,10 @@ jobs:
       if: ${{ !cancelled() }}
       uses: actions/upload-artifact@v4
       with:
-        name: blob-report
+        name: blob-report-${{ matrix.shardIndex }}
         path: blob-report/
-        retention-days: 30
-        
+        retention-days: 1
+
 merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
     if: ${{ !cancelled() }}
